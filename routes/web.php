@@ -18,17 +18,17 @@ use Illuminate\Http\Request;
 * タスクダッシュボード表示
 */
 Route::get('/', function () {
-//    return view('welcome');
-    $tasks = Task::orderBy('created_at','asc')->get();
-    
-    return view('tasks',[
-        'tasks' => $tasks
-    ]);
+    return view('welcome');
+//    $tasks = Task::orderBy('created_at','asc')->get();
+//    
+//    return view('tasks',[
+//        'tasks' => $tasks
+//    ]);
 });
 
-//Auth::routes();
+Auth::routes();
 
-//Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
 
 /**
 * 新タスク追加
