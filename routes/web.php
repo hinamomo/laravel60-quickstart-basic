@@ -49,7 +49,7 @@ Route::post('/task', function(Request $request){
     $task->name = $request->name;
     $task->save();
 
-    return redirect('/');
+    return redirect('/home');
     
 });
 
@@ -59,6 +59,6 @@ Route::post('/task', function(Request $request){
 Route::delete('/task/{task}', function (Task $task){
     $task->delete();
     
-    return redirect('/');
+    return redirect('/home');
 
 });
