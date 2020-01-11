@@ -23,7 +23,7 @@ class LineLoginController extends Controller
         $uri ="https://access.line.me/oauth2/v2.1/authorize?response_type=code";
         $client_id = "&client_id=".env('CLIENT_ID', false);
         $redirect_uri ="&redirect_uri=http://localhost/home&state=";
-        $scope="&scope=openid%20profile&nonce=";
+        $scope="&scope=openid%20profile&prompt=consent&nonce=";
         
         
         return redirect($uri.$client_id.$redirect_uri.$state.$scope.$nonce);
