@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Task;
+use GuzzleHttp\Client;
 
 class HomeController extends Controller
 {
@@ -33,7 +34,8 @@ class HomeController extends Controller
         }
         
         // アクセストークンを発行する
-        basic_request(); 
+        $code = $request->input('code');
+        $this->basic_request($code); 
         
 
         $tasks = Task::orderBy('created_at','asc')->get();
@@ -44,17 +46,48 @@ class HomeController extends Controller
     }
     
     // アクセストークン発行
-    public function basic_request() {
-        $base_url = 'http://example.com';
-        $client = new \GuzzleHttp\Client( [
-        'base_uri' => $base_url,
-        ] );
+    public function basic_request(String $code) {
+        
+        $client = new Client();
+        $response = $client->request('POST', 'https://api.line.me/oauth2/v2.1/token', array(
+            "headers" => array(
+                "Content-Type" => "application/x-www-form-urlencoded",
+            ),
+            "form_params" => array(
+                "grant_type" => "authorization_code",
+                "code" => $code,
+                "redirect_uri" => "http://localhost/home",
+                "client_id" => env('CLIENT_ID', false),
+                "client_secret" => env('CHANNEL_SECRET')
+            )
+        )); 
+        
+        //$base_url = 'https://api.line.me/oauth2/v2.1/token';
+        
+        //$client = new \GuzzleHttp\Client( [
+        //'base_uri' => $base_url,
+        //] );
 
-        $path = '/index.html';
-        $response = $client->request( 'GET', $path,
-        [
-            'allow_redirects' => true,
-        ] );
+        //$path = '/index.html';
+        
+        //$headers = [
+        //'Content-Type' => 'application/x-www-form-urlencoded'
+        //];
+        
+        //$form_params = [
+//            'grant_type' => 'authorization_code',
+//            'code' => $code,
+//            'redirect_uri' => 'http://localhost/home',
+//            'client_id' => env('CLIENT_ID', false),
+//            'client_secret' => env('CHANNEL_SECRET')
+//        ]
+//            
+//        $response = $client->request('POST', $path, array(
+//            [
+//                'headers' => $headers,
+//                'body' => $form_params
+//            ] ));
+        
         $response_body = (string) $response->getBody();
         echo $response_body;
     }
