@@ -62,32 +62,6 @@ class HomeController extends Controller
             )
         )); 
         
-        //$base_url = 'https://api.line.me/oauth2/v2.1/token';
-        
-        //$client = new \GuzzleHttp\Client( [
-        //'base_uri' => $base_url,
-        //] );
-
-        //$path = '/index.html';
-        
-        //$headers = [
-        //'Content-Type' => 'application/x-www-form-urlencoded'
-        //];
-        
-        //$form_params = [
-//            'grant_type' => 'authorization_code',
-//            'code' => $code,
-//            'redirect_uri' => 'http://localhost/home',
-//            'client_id' => env('CLIENT_ID', false),
-//            'client_secret' => env('CHANNEL_SECRET')
-//        ]
-//            
-//        $response = $client->request('POST', $path, array(
-//            [
-//                'headers' => $headers,
-//                'body' => $form_params
-//            ] ));
-        
         $response_body = (string) $response->getBody();
         echo $response_body;
     }
