@@ -46,6 +46,7 @@ class HomeController extends Controller
     }
     
     // アクセストークン発行
+    // 参考　https://yaba-blog.com/laravel-call-api/
     public function basic_request(String $code) {
         
         $client = new Client();
@@ -62,10 +63,11 @@ class HomeController extends Controller
             )
         )); 
         
-        $response_body = (string) $response->getBody();
-        $access_token = $response_body;
+        $post = $response->getBody();
+        $post = json_decode($post, true);
+        //レスポンスから新規記事のURLを取得
+        $access_token = $post['access_token'];
         
-//        echo $response_body;
         echo $access_token;
     }
 }
