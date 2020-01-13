@@ -63,6 +63,9 @@ class HomeController extends Controller
         )); 
         
         $response_body = (string) $response->getBody();
-        echo $response_body;
+        $access_token = $response_body;
+        
+//        echo $response_body;
+        echo $access_token;
     }
 }
