@@ -68,6 +68,22 @@ class HomeController extends Controller
         //レスポンスから新規記事のURLを取得
         $access_token = $post['access_token'];
         
-        echo $access_token;
+//        echo $access_token;
+        $this-> verify_access_token($access_token);
+    }
+    
+    
+    // アクセストークン検証
+    public function verify_access_token(String $access_token){
+        
+        $url = "https://api.line.me/oauth2/v2.1/verify?access_token=" . $access_token ;
+        $method = "GET";
+        //接続
+        $client = new Client();
+        $response = $client->request($method, $url);
+        $posts = $response->getBody();
+        $posts = json_decode($posts, true);
+        
+        var_dump($posts);
     }
 }
