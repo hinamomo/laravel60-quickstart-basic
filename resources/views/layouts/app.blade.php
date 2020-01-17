@@ -27,7 +27,7 @@
         <div class="navbar-header">
             <!-- Branding Image -->
             <a class="navbar-brand" href="{{ url('/') }}">
-                タスクリスト
+                ホーム
             </a>
         </div>
     </div>
