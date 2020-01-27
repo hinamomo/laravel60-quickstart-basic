@@ -26,10 +26,10 @@ class HomeController extends Controller
             return redirect('/');
         }
         
-        // TODO エラーレスポンスが返って来た場合は適切に処理する必要がある
+        // エラーレスポンスが返って来た場合はエラーを返却
         $error_description = $request->input('error_description');
         if($error_description != ""){
-                \Session::flash('flash_message', '権限拒否られたー');
+                \Session::flash('flash_message', '権限が拒否されました');
                 return redirect('/');
         }
         
@@ -40,9 +40,7 @@ class HomeController extends Controller
 
         $tasks = Task::orderBy('created_at','asc')->get();
     
-        return view('tasks',[
-            'tasks' => $tasks
-        ]);
+        return view('home');
     }
     
     // アクセストークン発行
@@ -68,7 +66,6 @@ class HomeController extends Controller
         //レスポンスから新規記事のURLを取得
         $access_token = $post['access_token'];
         
-//        echo $access_token;
         $this-> verify_access_token($access_token);
     }
     
@@ -83,7 +80,5 @@ class HomeController extends Controller
         $response = $client->request($method, $url);
         $posts = $response->getBody();
         $posts = json_decode($posts, true);
-        
-        var_dump($posts);
     }
 }

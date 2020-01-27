@@ -19,16 +19,15 @@ use Illuminate\Http\Request;
 */
 Route::get('/', function () {
     return view('welcome');
-//    $tasks = Task::orderBy('created_at','asc')->get();
-//    
-//    return view('tasks',[
-//        'tasks' => $tasks
-//    ]);
 });
 
-Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/line_login', 'LineLoginController@index')->name('line_login');
+
+Route::get('/session', 'SessionController@index')->name('session');
+
+
 
 /**
 * 新タスク追加
